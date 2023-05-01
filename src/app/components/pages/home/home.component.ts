@@ -13,7 +13,7 @@ export class HomeComponent {
   allMoments: Moment[] = [];
   moments: Moment[] = [];
   baseApiUrl = environment.baseApiUrl;
-  //toDo Search
+  faSearch = faSearch;
   constructor(private momentService: MomentService) { }
   ngOnInit(): void {
     this.momentService.getMoments().subscribe((items) => {
@@ -24,6 +24,12 @@ export class HomeComponent {
       this.allMoments = data;
       this.moments = data;
     });
-
+  }
+  search(event:Event):void{
+    const target = event.target as HTMLInputElement;
+    const value = target.value;
+    this.moments = this.allMoments.filter((moment)=>{
+      return moment.title.toLocaleLowerCase().includes(value);
+    })
   }
 }
