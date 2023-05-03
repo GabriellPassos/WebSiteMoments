@@ -10,11 +10,12 @@ import { Response } from '../Response';
 })
 export class CommentService {
   private baseApiUrl = environment.baseApiUrl;
-  private apiUrl = `${this.baseApiUrl}api/moments/comments`;
+  private apiUrl = `${this.baseApiUrl}api/moments`;
 
 
   constructor(private httpCliente:HttpClient) { }
   createComment(data:Comment):Observable<Response<Comment>>{
-    return this.httpCliente.post<Response<Comment>>(this.apiUrl, data);
+    const url = `${this.apiUrl}/${data.momentId}/comments`;
+    return this.httpCliente.post<Response<Comment>>(url, data);
   }
 }
